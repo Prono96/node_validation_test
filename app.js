@@ -27,17 +27,15 @@ app.get('/', (req, res) => {
 
 // Post routers
 app.post('/validate-rule', (req, res) => {
-
-  let result = {
-    message : "message",
-    status : "error",
-    data : null
-  }
   const { error, value } = validateSchema(req.body);
-  const payload = req.body;
   if(error) {
-    res.status(200).json(result);
-  }
+    res.status(422).send(error.details[0].message);
+  } 
+    // let result = {
+    //   message : "message",
+    //   status : "success",
+    //   data : null
+    // }
   
 })
 
