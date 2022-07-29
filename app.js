@@ -29,13 +29,14 @@ app.get('/', (req, res) => {
 app.post('/validate-rule', (req, res) => {
   const { error, value } = validateSchema(req.body);
   if(error) {
-    res.status(422).send(error.details[0].message);
+    let result = {
+      message : error.details[0].message,
+      status : error.details[0].message,
+      data : error.details[0].message,
+    }
+    res.send(result);
+    // res.status(422).send(error.details[0].message);
   } 
-    // let result = {
-    //   message : "message",
-    //   status : "success",
-    //   data : null
-    // }
   
 })
 
