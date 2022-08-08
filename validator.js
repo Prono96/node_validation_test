@@ -4,11 +4,11 @@ const validator = (schema) => (payload) =>
 schema.validate(payload, { abortEarly: false});
 
 // Defining the Schema 
-const schema = Joi.object({
+const schema = Joi.object().keys({
   rule: {
-    field: Joi.string().required(),
+    field: Joi.string().required().label("Your error message in here"),
     condition: Joi.string().required(),
-    condition_value: Joi.number().min(5).required()
+    condition_value: Joi.number().required()
   },
   data: {
     name: Joi.string().required(),
@@ -18,5 +18,6 @@ const schema = Joi.object({
     missions: Joi.number().required()
   }
 });
+
 
 exports.validateSchema = validator(schema);

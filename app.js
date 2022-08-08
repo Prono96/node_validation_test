@@ -2,7 +2,8 @@ var express = require("express");
 var app = express();
 const Joi = require('joi');
 const { validateSchema } = require("./validator")
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+const { object } = require("joi");
 
 app.use(bodyParser.json({extended: false}));
 
@@ -20,25 +21,30 @@ const example = {
   }
 }
 
+
 // Get routers
 app.get('/', (req, res) => {
- res.status(200).json(example);
+  res.status(200).json(example);
 })
 
 // Post routers
 app.post('/validate-rule', (req, res) => {
+  let result = {
+    
+  }
   const { error, value } = validateSchema(req.body);
   if(error) {
-    let result = {
-      message : error.details[0].message,
-      status : error.details[0].message,
-      data : error.details[0].message,
-    }
-    res.send(result);
-    // res.status(422).send(error.details[0].message);
+    return res.status(400).send({
+      message : 'field is required',
+      status : 'error',
+      data : null
+    });
   } 
+
+  res.status(200).send('You are logged in');
   
 })
+
 
 // App Listening
 const port = process.env.PORT || 5000
