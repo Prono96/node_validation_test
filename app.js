@@ -29,9 +29,6 @@ app.get('/', (req, res) => {
 
 // Post routers
 app.post('/validate-rule', (req, res) => {
-  let result = {
-   
-  }
   const { error, value } = validateSchema(req.body);
   if(error) {
     return res.status(400).send({
@@ -40,7 +37,6 @@ app.post('/validate-rule', (req, res) => {
       data : null
     });
   } 
-  console.log(error.message)
   
   console.log('you are logged in');
   res.status(200).send('You are logged in');
